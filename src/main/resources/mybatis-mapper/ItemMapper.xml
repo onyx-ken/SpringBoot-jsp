@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="springPractice.onyx.item.ItemMapper">
+
+    <select id="itemAllList" resultType="ItemVO">
+        SELECT ITEM_ID,
+               ITEM_NAME,
+               ITEM_PRICE,
+               ITEM_QTY
+        FROM   ITEM
+    </select>
+
+    <select id="findItem" resultType="ItemVO" parameterType="Long">
+        SELECT ITEM_ID,
+               ITEM_NAME,
+               ITEM_PRICE,
+               ITEM_QTY
+        FROM   ITEM
+        WHERE ITEM_ID = #{itemId}
+    </select>
+
+
+    <insert id="saveItem" parameterType="ItemVO">
+        INSERT INTO ITEM(ITEM_ID,
+                         ITEM_NAME,
+                         ITEM_PRICE,
+                         ITEM_QTY
+                         )
+        VALUES (SEQ_ITEM.NEXTVAL,
+                #{itemName},
+                #{itemPrice},
+                #{itemQty}
+                )
+    </insert>
+
+    <update id="updateItem" parameterType="ItemVO">
+        UPDATE ITEM
+        SET     ITEM_NAME = #{itemName},
+                ITEM_PRICE = #{itemPrice},
+                ITEM_QTY = #{itemQty}
+        WHERE   ITEM_ID = #{itemId}
+    </update>
+
+    <delete id="deleteItem" parameterType="ItemVO">
+        DELETE FROM ITEM
+        WHERE       ITEM_ID = #{itemId}
+    </delete>
+
+</mapper>
