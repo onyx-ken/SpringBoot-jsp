@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -24,14 +26,29 @@
     </div>
     <h4 class="mb-3">상품 입력</h4>
     <form action="/basic/items/add" method="post" id="itemVO">
+        <spring:hasBindErrors name="itemVO">
+            <c:if test="${errors.hasFieldErrors('itemPrice') }">
+                <strong>${errors.getFieldError( 'itemPrice' ).defaultMessage }</strong>
+            </c:if>
+        </spring:hasBindErrors>
         <div>
             <label for="itemName">상품명</label>
-            <input type="text" id="itemName" name="itemName" class="form-control" placeholder="이름을 입력하세요">
+            <input type="text" id="itemName" name="itemName" class="form-control" placeholder="이름을 입력하세요" value="${itemVO.itemName}">
+            <spring:hasBindErrors name="itemVO">
+            <c:if test="${errors.hasFieldErrors('itemName') }">
+                <strong>${errors.getFieldError( 'itemName' ).defaultMessage }</strong>
+            </c:if>
+            </spring:hasBindErrors>
+
         </div>
         <div>
             <label for="itemPrice">가격</label>
-            <input type="text" id="itemPrice" name="itemPrice" class="form-control"
-                   placeholder="가격을 입력하세요">
+            <input type="text" id="itemPrice" name="itemPrice" class="form-control" placeholder="가격을 입력하세요" value="${itemVO.itemPrice}">
+            <spring:hasBindErrors name="itemVO">
+            <c:if test="${errors.hasFieldErrors('itemPrice') }">
+                <strong>${errors.getFieldError( 'itemPrice' ).defaultMessage }</strong>
+            </c:if>
+            </spring:hasBindErrors>
         </div>
         <div>
             <label for="itemQty">수량</label>
